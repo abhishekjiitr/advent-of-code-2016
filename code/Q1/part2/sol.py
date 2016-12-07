@@ -15,44 +15,26 @@ for move in moves:
 	direction = move[0]
 	steps = move[1]
 
-	found = False
-	
 	if direction == "L":
 		current  = ( current-1 )% 4
 	if direction == "R":
 		current  = ( current+1 )% 4
 
-	if current == 0: # NORTH
-		for i in range(steps):
+	
+	for i in range(steps):
+		if current == 0: # NORTH
 			y += 1
-			if (x, y) in visited:
-				found = True
-				break
-			visited.append((x, y))
-	if current == 1: # EAST
-		for i in range(steps):
+		if current == 1: # EAST
 			x += 1
-			if (x, y) in visited:
-				found = True
-				break
-			visited.append((x, y))
-	if current == 2: # SOUTH
-		for i in range(steps):
+		if current == 2: # SOUTH
 			y -= 1
-			if (x, y) in visited:
-				found = True
-				break
-			visited.append((x, y))
-	if current == 3: # WEST
-		for i in range(steps):
+		if current == 3: # WEST
 			x -= 1
-			if (x, y) in visited:
-				found = True
-				break
-			visited.append((x, y))
-	if found:
-		break
+		if (x, y) in visited:
+			break
+		visited.append((x, y))
 
 blocks = abs(x) + abs(y)
+# print(visited )
 print(blocks)
 					
