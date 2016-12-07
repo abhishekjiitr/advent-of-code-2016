@@ -6,25 +6,29 @@ with open("input.txt") as f:
 # print(inst)
 
 num = {}
-num[(0, 0)] = "1" 
-num[(0, 1)] = "2"
-num[(0, 2)] = "3"
-num[(1, 0)] = "4"
-num[(1, 1)] = "5"
-num[(1, 2)] = "6"
-num[(2, 0)] = "7"
-num[(2, 1)] = "8"
-num[(2, 2)] = "9"
+num[(0, 2)] = "1"
+num[(1, 1)] = "2"
+num[(1, 2)] = "3"
+num[(1, 3)] = "4"
+num[(2, 0)] = "5"
+num[(2, 1)] = "6"
+num[(2, 2)] = "7"
+num[(2, 3)] = "8"
+num[(2, 4)] = "9" 
+num[(3, 1)] = "A"
+num[(3, 2)] = "B" 
+num[(3, 3)] = "C" 
+num[(4, 2)] = "D"
 
-state = (1,1)
+state = (2, 0)
 
 def stateProcess(mstate, x, y):
 	nx = mstate[0]+x
 	ny = mstate[1]+y
-	if 0 <= nx <= 2 and 0 <= ny <= 2:
-		return (nx, ny)
-	return mstate
-
+	if   ny < 0 or nx < 0 or nx > 4 or ny > 4 or (nx == 0 and not ny == 2) or (nx == 4 and not ny == 2) or (not nx == 2 and ny == 0) or (not nx == 2 and  ny == 4):
+		return mstate 
+	return (nx, ny)
+	
 def process(state, line):
 	for dire in line:
 		if dire == "U":
@@ -35,12 +39,10 @@ def process(state, line):
 			state = stateProcess(state, 1, 0)
 		if dire == "L":
 			state = stateProcess(state, 0, -1)
-		# print(num[state])
 	return state
-1
+
 code = ""
 for line in inst:
 	state = process(state, line)
-	# print("NUMBER: " + num[state])
 	code += num[state]
 print(code)
